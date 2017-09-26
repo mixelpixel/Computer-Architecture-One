@@ -50,7 +50,7 @@ CPU, Clock(s), Program Counter, Instruction Register, Arithmetic Logic Unit, bus
 
 - Cache - Memory located inside of the CPU for low latency and high throughput. RAM located outside of CPU fundamentally must be slower, because it is so far away.
 
-- bus - A set of wires that connects the CPU with other system components such as RAM and peripherals. The CPU has internal buses, and modern systems have different buses for different components: DMA bus, PCI bus, 
+- bus - A set of wires that connects the CPU with other system components such as RAM and peripherals. The CPU has internal buses, and modern systems have different buses for different components: DMA bus, PCI bus,
 
 - RAM - A grid of bits
 
@@ -90,7 +90,7 @@ Using the ASCII table, a stack, a program counter, and a tiny set of instruction
     00000001 # register #1
     00000010 # SET register
     00000010 # register #3
-    00000101 # PRINT_NUMERIC
+    00000110 # PRINT_NUMERIC
 
 Extra credit:
 
