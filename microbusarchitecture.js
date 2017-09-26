@@ -12,24 +12,28 @@ const commands = fs.readFileSync('./inputfile', 'utf8').split(os.EOL);
 // const commands = fs.readFileSync(file, 'utf8').split(os.EOL);
 const binaryCmds = [];
 commands.forEach((x) => {
-  binaryCmds.push(x.slice(0, 7));
+  binaryCmds.push(x.slice(0, 8));
 });
 binaryCmds.pop();
 
-console.log(binaryCmds);
+// console.log(binaryCmds);
 
-const MAR = [];
+const MAR = ['placeholder'];
 let programCounter = 0;
-
-const execute = () => {
-  // process the binary commands
-};
-
-setInterval(execute, 500);
-
 
 // create interval with setInterval
 // use console logs to observer what happens
+// loop to establish condition for execution? per binaryCmds.length via programCounter?
+for (let i = 0; i < binaryCmds.length; i++) {
+  setTimeout(() => {
+    console.log(`Program Counter before: ${programCounter}`);
+    console.log(`Memory Address Register: ${MAR}`);
+    console.log(`Executing binary command: ${binaryCmds[i]}`);
+    programCounter++;
+    console.log(`Program Counter after: ${programCounter}\n`);
+  }, i * 500 );
+}
+
 
 // with each cycle execute core: 4 steps
 // read data from file (as pointed to by Program Counter - 0 equals line 0)
