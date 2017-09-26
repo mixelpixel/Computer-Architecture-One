@@ -74,7 +74,7 @@ Using the ASCII table, a stack, a program counter, and a tiny set of instruction
 
 
     #inputfile
-    00000001 # initialize
+    00000001 # INIT initializes 
     00000010 # SET register
     00000000 # register #0
     00000100 # SAVE next
