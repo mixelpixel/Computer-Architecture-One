@@ -1,14 +1,14 @@
 import fs
 
-# using fs, load the file I have called inputfile
+# using fs, load the file I have called inputfile - DONE √
 
-# ignore comments as you read the file
+# ignore comments as you read the file - DONE √
 
-# let program_counter = 0;
+# let program_counter = 0; - DONE √
 
-# create an interval with `setInterval`
+# create an interval with `setInterval` - DONE √
 
-# you choose interval
+# you choose interval - DONE √
 
 # call function executeCore
 
