@@ -2,14 +2,14 @@
 /* eslint no-console: 0 */
 const fs = require('fs');
 const os = require('os');
+
 // load all at once or read line by line; ignore pound sign start and comments, convert integer
 // const text = fs.readFileSync('./inputfile', 'utf8');
 // const commands = text.split(os.EOL);
-
-// const commands = fs.readFileSync('./inputfile', 'utf8').split(os.EOL);
-const process = require('process'); // <~~~ just making linter happy
-const file = process.argv[2];
-const commands = fs.readFileSync(file, 'utf8').split(os.EOL);
+const commands = fs.readFileSync('./inputfile', 'utf8').split(os.EOL);
+// const process = require('process'); // <~~~ just making linter happy
+// const file = process.argv[2];
+// const commands = fs.readFileSync(file, 'utf8').split(os.EOL);
 const binaryCmds = [];
 commands.forEach((x) => {
   binaryCmds.push(x.slice(0, 7));
@@ -19,7 +19,14 @@ binaryCmds.pop();
 console.log(binaryCmds);
 
 const MAR = [];
-let programCounter = 0
+let programCounter = 0;
+
+const execute = () => {
+  // process the binary commands
+};
+
+setInterval(execute, 500);
+
 
 // create interval with setInterval
 // use console logs to observer what happens
