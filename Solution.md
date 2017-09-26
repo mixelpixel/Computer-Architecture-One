@@ -2,7 +2,7 @@ import fs
 
 # using fs, load the file I have called inputfile
 
-# ignore  comments as you read the file
+# ignore comments as you read the file
 
 # let program_counter = 0;
 
@@ -25,4 +25,3 @@ import fs
 - register 0 is set
 - SAVE
 - ...
-
