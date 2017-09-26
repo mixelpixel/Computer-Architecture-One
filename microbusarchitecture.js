@@ -16,7 +16,23 @@ commands.forEach((x) => {
 });
 binaryCmds.pop();
 
-// console.log(binaryCmds);
+console.log(binaryCmds);
+const unique = new Set(binaryCmds);
+console.log(unique);
+const sorted = Array.from(unique).sort();
+console.log(sorted);
+/*
+[
+  '00000000', - register #0
+  '00000001', - initialize, register #1
+  '00000010', - SET register, register #3
+  '00000100', - SAVE next
+  '00000101', - MUL into last
+  '00000110', - PRINT_NUMERIC
+  '00001000', - 8
+  '00001001'  - 9
+]
+*/
 
 const MAR = ['placeholder'];
 let programCounter = 0;
@@ -31,7 +47,7 @@ for (let i = 0; i < binaryCmds.length; i++) {
     console.log(`Executing binary command: ${binaryCmds[i]}`);
     programCounter++;
     console.log(`Program Counter after: ${programCounter}\n`);
-  }, i * 500 );
+  }, i * 1000 );
 }
 
 
