@@ -7,11 +7,12 @@ const os = require('os');
 // const text = fs.readFileSync('./inputfile', 'utf8');
 // const commands = text.split(os.EOL);
 
-// const commands = fs.readFileSync('./inputfile', 'utf8').split(os.EOL);
+const commands = fs.readFileSync('./inputfile', 'utf8').split(os.EOL);
 
-const process = require('process'); // <~~~ just making linter happy
-const file = process.argv[2];
-const commands = fs.readFileSync(file, 'utf8').split(os.EOL);
+// PROCESS.ARGV version
+// const process = require('process'); // <~~~ just making linter happy
+// const file = process.argv[2];
+// const commands = fs.readFileSync(file, 'utf8').split(os.EOL);
 
 const binaryCmds = [];
 commands.forEach((item) => {
