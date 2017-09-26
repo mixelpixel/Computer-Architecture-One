@@ -3,12 +3,8 @@
 const fs = require('fs');
 const os = require('os');
 
-// load all at once or read line by line; ignore pound sign start and comments, convert integer
-// const text = fs.readFileSync('./inputfile', 'utf8');
-// const commands = text.split(os.EOL);
-
+// import commands into an array
 const commands = fs.readFileSync('./inputfile', 'utf8').split(os.EOL);
-
 // PROCESS.ARGV version
 // const process = require('process'); // <~~~ just making linter happy
 // const file = process.argv[2];
@@ -37,6 +33,23 @@ binaryCmds.pop();
   '00001001'  - 9
 ]
 */
+
+// command: function Dictionary
+const hardware = {
+  // INIT
+  '00000001': () => {},
+  // SET
+  '00000010': () => {},
+  // SAVE
+  '00000100': () => {},
+  // MULTIPLY
+  '00000101': () => {},
+  // PRINT
+  '00000110': () => {},
+  binaryStrToDecimal: () => {},
+  // TODO: binary > ascii
+  // CONCATENATE strings
+}
 
 const MAR = [];
 let programCounter = 0;
