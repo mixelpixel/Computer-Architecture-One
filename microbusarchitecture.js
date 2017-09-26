@@ -6,10 +6,13 @@ const os = require('os');
 // load all at once or read line by line; ignore pound sign start and comments, convert integer
 // const text = fs.readFileSync('./inputfile', 'utf8');
 // const commands = text.split(os.EOL);
-const commands = fs.readFileSync('./inputfile', 'utf8').split(os.EOL);
-// const process = require('process'); // <~~~ just making linter happy
-// const file = process.argv[2];
-// const commands = fs.readFileSync(file, 'utf8').split(os.EOL);
+
+// const commands = fs.readFileSync('./inputfile', 'utf8').split(os.EOL);
+
+const process = require('process'); // <~~~ just making linter happy
+const file = process.argv[2];
+const commands = fs.readFileSync(file, 'utf8').split(os.EOL);
+
 const binaryCmds = [];
 commands.forEach((item) => {
   binaryCmds.push(item.slice(0, 8));
@@ -60,11 +63,14 @@ for (let i = 0; i < binaryCmds.length; i++) {
 const executeCore = (bin) => {
   /* 4 steps per: https://youtu.be/82F93iymaaU?t=54m57s
   1) read memory (data from inputfile)
-  1a) inputfile line number (or array index) pointed to by programCounter
+  1a) inputfile line number (or array index) pointed to by programCounter (init @ 0)
   2) COPY what is in the inputfile index into the MAR (Memory Address Register)
   3) push into instruction register
   4) execute instruction
+  5) programCounter++
+  6) repeat until dead
 
+  e.g.
   Initialize IR 1: zero out all the registers (reg 0, 1, 2, 3)
   IR commands: initialize set all 4 regs to zero
   IR 2 - SET next number should wire up specific register for the next command of data.
