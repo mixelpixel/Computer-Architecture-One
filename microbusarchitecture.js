@@ -44,6 +44,7 @@ for (let i = 0; i < binaryCmds.length; i++) {
   setTimeout(() => {
     console.log(`Program Counter before: ${programCounter}`);
     console.log(`Memory Address Register: ${MAR}`);
+    MAR.push(binaryCmds[i])
     console.log(`Executing binary command: ${binaryCmds[i]}`);
     programCounter++;
     console.log(`Program Counter after: ${programCounter}\n`);
@@ -52,6 +53,24 @@ for (let i = 0; i < binaryCmds.length; i++) {
 
 
 // with each cycle execute core: 4 steps
+
+const executeCore = (bin) => {
+  /* 4 steps per: https://youtu.be/82F93iymaaU?t=54m57s
+  1) read memory (data from inputfile)
+  1a) inputfile line number (or array index) pointed to by programCounter
+  2) COPY what is in the inputfile index into the MAR (Memory Address Register)
+  3) push into instruction register
+  4) execute instruction
+
+  Initialize IR 1: zero out all the registers (reg 0, 1, 2, 3)
+  IR commands: initialize set all 4 regs to zero
+  IR 2 - SET next number should wire up specific register for the next command of data.
+  now the 00000000 means something different - it means register 0
+  SAVE - save next command as a number
+  8 gets saved in register 0
+  */
+};
+
 // read data from file (as pointed to by Program Counter - 0 equals line 0)
 // copy what is in PC into MAR (memory address register - ignoring delay)
 
