@@ -11,20 +11,20 @@ const commands = fs.readFileSync('./inputfile', 'utf8').split(os.EOL);
 // const file = process.argv[2];
 // const commands = fs.readFileSync(file, 'utf8').split(os.EOL);
 const binaryCmds = [];
-commands.forEach((x) => {
-  binaryCmds.push(x.slice(0, 8));
+commands.forEach((item) => {
+  binaryCmds.push(item.slice(0, 8));
 });
 binaryCmds.pop();
 
-console.log(binaryCmds);
-const unique = new Set(binaryCmds);
-console.log(unique);
-const sorted = Array.from(unique).sort();
-console.log(sorted);
+// console.log(binaryCmds);
+// const unique = new Set(binaryCmds);
+// console.log(unique);
+// const sorted = Array.from(unique).sort();
+// console.log(sorted);
 /*
 [
   '00000000', - register #0
-  '00000001', - initialize, register #1
+  '00000001', - INIT initialize, register #1
   '00000010', - SET register, register #3
   '00000100', - SAVE next
   '00000101', - MUL into last
@@ -34,7 +34,7 @@ console.log(sorted);
 ]
 */
 
-const MAR = ['placeholder'];
+const MAR = [];
 let programCounter = 0;
 
 // create interval with setInterval
@@ -43,12 +43,15 @@ let programCounter = 0;
 for (let i = 0; i < binaryCmds.length; i++) {
   setTimeout(() => {
     console.log(`Program Counter before: ${programCounter}`);
-    console.log(`Memory Address Register: ${MAR}`);
-    MAR.push(binaryCmds[i])
+    console.log(`Memory Address Register before: ${MAR}`);
+    MAR.push(binaryCmds[i]);
+    console.log(`Memory Address Register after: ${MAR}`);
     console.log(`Executing binary command: ${binaryCmds[i]}`);
     programCounter++;
     console.log(`Program Counter after: ${programCounter}\n`);
-  }, i * 1000 );
+    MAR.pop();
+    console.log(`Memory Address Register after Program Counter: ${MAR}`);
+  }, i * 500 );
 }
 
 
