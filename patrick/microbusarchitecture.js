@@ -68,6 +68,7 @@ process.stdin.on('data', function (text) {
       const inputDecimal = Number('0b' + inputBinary);
       console.log('converted to decimal: ' + inputDecimal);
       console.log('program counter: ', programCounter);
+
       if (stateSet && binaryOrDecimal === 'decimal') {
         console.log('MAR BEFORE: ', memoryAddressRegister);
         memoryAddressRegister[inputBinary] = inputDecimal;
@@ -75,7 +76,7 @@ process.stdin.on('data', function (text) {
         stateSet = false;
       }
 
-      if(!isNaN(inputDecimal)) {
+      else if (!isNaN(inputDecimal)) {
         // cpu.process(inputDecimal); // <~~~~ MIND === BLOWN
         switch (inputDecimal) {
         case 1:
