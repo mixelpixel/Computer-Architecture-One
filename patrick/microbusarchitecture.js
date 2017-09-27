@@ -1,26 +1,18 @@
-// Read Command List >> Into Array
-// const fs = require('fs');
-// const os = require('os');
-// const instructions = fs.readFileSync('inputFile', 'utf8').split(os.EOL);
-// const bins = [];
-// instructions.forEach((item)=> {
-//   bins.push(item.slice(0, 8));
-// });
-
+'use-strict';
 /* eslint no-console: 0 */
+
 // STATE CHANGES For State Machine
 // BINARY_OR_DECIMAL
-const binaryOrDecimal = 'binary' || 'decimal';
-console.log(binaryOrDecimal);
-// SET
+let binaryOrDecimal = 'binary' || 'decimal'; // <~~~ defaults to binary, see: https://stackoverflow.com/q/2100758/5225057
+// // SET
 // const stateSet = false;
 // // SAVE
 // const stateSave = false;
-// // MULTIPLY
-// const stateMultiply = false;
+// MULTIPLY
+const stateMultiply = false;
 
 // REGISTRIES
-// INITIALIZE PROGRAM COUNTER: 0
+// // INITIALIZE PROGRAM COUNTER: 0
 // const programCounter = 0;
 // MEMORY_ADDRESS_REGISTER
 let memoryAddressRegister = [null, null, null, null];
@@ -30,40 +22,37 @@ const activeRegister = [];
 const multiplyRegister = [];
 
 // FUNCTIONS
-// EXECUTE_CPU_CYCLE
-// // Program counter++ advances with each execution of the CPU cycle
-// const CPU = () => {
-//   for (let i = 0; i < bins.length; i++) {
-//     setTimeout(() => { console.log(bins[i])}, i * 1000);
-//   }
-// };
-// CPU();
-// BINARY_STRING TO DECIMAL CONVERSION: parseInt(string, 2)
-
 // INIT
 const init = () => {
+  binaryOrDecimal = 'binary';
   memoryAddressRegister = [0, 0, 0, 0];
 };
 // SET
 const set = () => {
-
+  binaryOrDecimal = 'binary';
+  // SET the MAR index in activeRegister
+  binaryOrDecimal = 'decimal';
 };
 // SAVE
 const save = () => {
-
+  binaryOrDecimal = 'binary';
+  // SAVE the decimal value at MAR index per activeRegister
+  binaryOrDecimal = 'decimal';
 };
 // MULTIPLY
 const multiply = () => {
-
+  // MULTIPLY into the activeRegster the values at the next two MAR indexes
+  // programCounter +2 to set back to binary.
 };
 // PRINT
 const print = () => {
-  // print the register value
+  // print the activeRegister value
   console.log('whatever we want');
   //console.log(memoryAddressRegister[activeRegister[0]]);
   done();
 };
 
+const process = require('process'); // <~~~ Not needed - just making linter happy
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 process.stdin.on('data', function (text) {
@@ -77,32 +66,38 @@ process.stdin.on('data', function (text) {
       const inputBinary = line.split('#')[0].trim();
       console.log('binary string: ' + inputBinary);
       const inputDecimal = Number('0b' + inputBinary);
-      console.log('converted decimal: ' + inputDecimal);
+      console.log('converted to decimal: ' + inputDecimal);
+      // console.log(process.argv);
+      console.log(process.stdin.on);
 
       if(!isNaN(inputDecimal)) {
-        // if (inputDecimal === 00000001) { init()};
-        // console.log(memoryAddressRegister);
-        // cpu.process(inputDecimal);
+        // cpu.process(inputDecimal); // <~~~~ MIND === BLOWN
         switch (inputDecimal) {
-          case 1:
-            console.log(memoryAddressRegister);
-            init();
-            console.log(memoryAddressRegister);
-            break;
-        //   case SET:
-        //     return
-        //   case SAVE:
-        //     return
-        //   case MULTIPLY:
-        //     return
-          case 6:
-            print();
-            break;
-          default:
-            return console.log('you fucking numbnuts');
+        case 1:
+          console.log(memoryAddressRegister);
+          init();
+          console.log(memoryAddressRegister);
+          break;
+        case 2:
+          set();
+          console.log(binaryOrDecimal);
+          break;
+        case 4:
+          save();
+          console.log(binaryOrDecimal);
+          break;
+        case 5:
+          multiply();
+          console.log(binaryOrDecimal);
+          break;
+        case 6:
+          print(); // <~~~ invokes done()
+          break;
+        default:
+          // If multiply, binaryOrDecimal = decimal x2
+          binaryOrDecimal = 'binary';
+          return console.log('you fucking numbnuts');
         }
-        // console.log('you fucking numbnuts');
-        // done();
       }
     });
   }
