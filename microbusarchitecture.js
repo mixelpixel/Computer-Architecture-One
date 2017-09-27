@@ -1,14 +1,17 @@
 // Read Command List >> Into Array
-const fs = require('fs');
-const os = require('os');
+// const fs = require('fs');
+// const os = require('os');
+// const instructions = fs.readFileSync('inputFile', 'utf8').split(os.EOL);
+// const bins = [];
+// instructions.forEach((item)=> {
+//   bins.push(item.slice(0, 8));
+// });
 
-const instructions = fs.readFileSync('inputFile', 'utf8').split(os.EOL);
-const bins = [];
-instructions.forEach((item)=> { bins.push(item.slice(0, 8))});
-
+/* eslint no-console: 0 */
 // STATE CHANGES For State Machine
 // BINARY_OR_DECIMAL
-const binaryOrDecimal = 'binary';
+const binaryOrDecimal = 'binary' || 'decimal';
+console.log(binaryOrDecimal);
 // SET
 // const stateSet = false;
 // // SAVE
@@ -28,7 +31,7 @@ const multiplyRegister = [];
 
 // FUNCTIONS
 // EXECUTE_CPU_CYCLE
-    // Program counter++ advances with each execution of the CPU cycle
+// // Program counter++ advances with each execution of the CPU cycle
 // const CPU = () => {
 //   for (let i = 0; i < bins.length; i++) {
 //     setTimeout(() => { console.log(bins[i])}, i * 1000);
@@ -83,9 +86,9 @@ process.stdin.on('data', function (text) {
         switch (inputDecimal) {
           case 1:
             console.log(memoryAddressRegister);
-             init();
-             console.log(memoryAddressRegister);
-             break;
+            init();
+            console.log(memoryAddressRegister);
+            break;
         //   case SET:
         //     return
         //   case SAVE:
