@@ -56,7 +56,8 @@ const multiply = () => {
 // PRINT 
 const print = () => {
   // print the register value
-  console.log(memoryAddressRegister[activeRegister[0]]);
+  console.log('whatever we want');
+  //console.log(memoryAddressRegister[activeRegister[0]]);
   done();
 };
 
@@ -71,31 +72,33 @@ process.stdin.on('data', function (text) {
     lines.forEach((line) => {
       // prep variable
       const inputBinary = line.split('#')[0].trim();
-      console.log('binary: ' + inputBinary);
+      console.log('binary string: ' + inputBinary);
       const inputDecimal = Number('0b' + inputBinary);
-      console.log('decimal: ' + inputDecimal);
+      console.log('converted decimal: ' + inputDecimal);
 
       if(!isNaN(inputDecimal)) {
-        if (inputDecimal === 00000001) { init()};
-        console.log(memoryAddressRegister);
-
+        // if (inputDecimal === 00000001) { init()};
+        // console.log(memoryAddressRegister);
         // cpu.process(inputDecimal);
-        // switch (inputDecimal) {
-        //   case INIT ( if ...):
-        //     console.log(`THIS IS PAYLOAD >>>>>>` + [...posts]);
-        //     return 
+        switch (inputDecimal) {
+          case 1:
+            console.log(memoryAddressRegister);
+             init();
+             console.log(memoryAddressRegister);
+             break;
         //   case SET:
         //     return 
         //   case SAVE:
         //     return 
         //   case MULTIPLY:
         //     return 
-        //   case PRINT:
-        //   return 
-        //   default:
-        //     return console.log('you fucking numbnuts');
-        // }
-        console.log('you fucking numbnuts');
+          case 6:
+            print();
+            break;
+          default:
+            return console.log('you fucking numbnuts');
+        }
+        // console.log('you fucking numbnuts');
         // done();
       }
     });
