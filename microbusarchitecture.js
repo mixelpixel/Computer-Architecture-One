@@ -20,7 +20,7 @@ const binaryOrDecimal = 'binary';
 // INITIALIZE PROGRAM COUNTER: 0
 // const programCounter = 0;
 // MEMORY_ADDRESS_REGISTER
-const memoryAddressRegister = [];
+let memoryAddressRegister = [null, null, null, null];
 // ACTIVE_REGISTER
 const activeRegister = [];
 // MULTIPLY_REGISTER
@@ -38,9 +38,21 @@ const multiplyRegister = [];
 // BINARY_STRING TO DECIMAL CONVERSION: parseInt(string, 2)
 
 // INIT
+const init = () => {
+  memoryAddressRegister = [0, 0, 0, 0];
+};
 // SET 
+const set = () => {
+  
+};
 // SAVE
+const save = () => {
+  
+};
 // MULTIPLY
+const multiply = () => {
+  
+};
 // PRINT 
 const print = () => {
   // print the register value
@@ -64,6 +76,9 @@ process.stdin.on('data', function (text) {
       console.log('decimal: ' + inputDecimal);
 
       if(!isNaN(inputDecimal)) {
+        if (inputDecimal === 00000001) { init()};
+        console.log(memoryAddressRegister);
+
         // cpu.process(inputDecimal);
         // switch (inputDecimal) {
         //   case INIT ( if ...):
@@ -81,7 +96,7 @@ process.stdin.on('data', function (text) {
         //     return console.log('you fucking numbnuts');
         // }
         console.log('you fucking numbnuts');
-        done();
+        // done();
       }
     });
   }
