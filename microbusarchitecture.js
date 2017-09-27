@@ -14,17 +14,18 @@ let stateSet = false;
 // // SAVE
 let stateSave = false;
 // // MULTIPLY
-// const stateMultiply = false;
+let stateMultiply = false;
+let multiplyTwice = false;
 
 // REGISTRIES
 // INITIALIZE PROGRAM COUNTER: 0
-// const programCounter = 0;
+let programCounter = 0;
 // MEMORY_ADDRESS_REGISTER
 let memoryAddressRegister = [null, null, null, null];
 // ACTIVE_REGISTER
 let activeRegister = 0;
 // MULTIPLY_REGISTER
-const multiplyRegister = [];
+const multiplyRegister = [NaN, NaN];
 
 // FUNCTIONS
 // EXECUTE_CPU_CYCLE
@@ -53,7 +54,8 @@ const save = () => {
 };
 // MULTIPLY
 const multiply = () => {
-  
+  stateMultiply = true;
+  binaryOrDecimal = 'decimal';
 };
 // PRINT 
 const print = () => {
@@ -93,6 +95,19 @@ process.stdin.on('data', function (text) {
         console.log(`Integer: `,memoryAddressRegister[activeRegister]);
         console.log(`MAR: `,memoryAddressRegister);
       }
+      else if (stateMultiply && binaryOrDecimal === 'decimal') { 
+        if (multiplyTwice) {
+          multiplyRegister[1] = memoryAddressRegister[inputDecimal];
+          memoryAddressRegister[activeRegister] = (multiplyRegister[0] * multiplyRegister[1]);
+          console.log('SECOND: ', multiplyRegister);
+          stateMultiply = false;
+          binaryOrDecimal = 'binary';
+          console.log(`MAR: `,memoryAddressRegister);
+        }
+        multiplyRegister[0] = memoryAddressRegister[inputDecimal];
+        console.log('FIRST: ', multiplyRegister);
+        multiplyTwice = true;
+      }
       else if(!isNaN(inputDecimal)) {
         // if (inputDecimal === 00000001) { init()};
         // console.log(memoryAddressRegister);
@@ -109,8 +124,9 @@ process.stdin.on('data', function (text) {
           case 4:
             save();
             break;
-        //   case MULTIPLY:
-        //     return 
+           case 5:
+             multiply();
+             break;
           case 6:
             print();
             break;
@@ -120,6 +136,8 @@ process.stdin.on('data', function (text) {
         // console.log('you fucking numbnuts');
         // done();
       }
+      programCounter++;
+      console.log('PC: ', programCounter);
     });
   }
 });
