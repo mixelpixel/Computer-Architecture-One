@@ -10,19 +10,19 @@ instructions.forEach((item)=> { bins.push(item.slice(0, 8))});
 // BINARY_OR_DECIMAL
 const binaryOrDecimal = 'binary';
 // SET 
-const stateSet = false;
-// SAVE
-const stateSave = false;
-// MULTIPLY
-const stateMultiply = false;
+// const stateSet = false;
+// // SAVE
+// const stateSave = false;
+// // MULTIPLY
+// const stateMultiply = false;
 
 // REGISTRIES
 // INITIALIZE PROGRAM COUNTER: 0
-const programCounter = 0;
+// const programCounter = 0;
 // MEMORY_ADDRESS_REGISTER
 const memoryAddressRegister = [];
 // ACTIVE_REGISTER
-const activateRegister = [];
+const activeRegister = [];
 // MULTIPLY_REGISTER
 const multiplyRegister = [];
 
@@ -36,11 +36,18 @@ const multiplyRegister = [];
 // };
 // CPU();
 // BINARY_STRING TO DECIMAL CONVERSION: parseInt(string, 2)
+
 // INIT
 // SET 
 // SAVE
 // MULTIPLY
 // PRINT 
+const print = () => {
+  // print the register value
+  console.log(memoryAddressRegister[activeRegister[0]]);
+  done();
+};
+
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 process.stdin.on('data', function (text) {
@@ -58,6 +65,21 @@ process.stdin.on('data', function (text) {
 
       if(!isNaN(inputDecimal)) {
         // cpu.process(inputDecimal);
+        // switch (inputDecimal) {
+        //   case INIT ( if ...):
+        //     console.log(`THIS IS PAYLOAD >>>>>>` + [...posts]);
+        //     return 
+        //   case SET:
+        //     return 
+        //   case SAVE:
+        //     return 
+        //   case MULTIPLY:
+        //     return 
+        //   case PRINT:
+        //   return 
+        //   default:
+        //     return console.log('you fucking numbnuts');
+        // }
         console.log('you fucking numbnuts');
         done();
       }
