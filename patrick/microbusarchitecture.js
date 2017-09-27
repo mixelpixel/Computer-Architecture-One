@@ -4,8 +4,8 @@
 // STATE CHANGES For State Machine
 // BINARY_OR_DECIMAL
 let binaryOrDecimal = 'binary' || 'decimal'; // <~~~ defaults to binary, see: https://stackoverflow.com/q/2100758/5225057
-// // SET
-// const stateSet = false;
+// SET
+let stateSet = false;
 // // SAVE
 // const stateSave = false;
 // MULTIPLY
@@ -17,9 +17,9 @@ let programCounter = 0;
 // MEMORY_ADDRESS_REGISTER
 let memoryAddressRegister = [null, null, null, null];
 // ACTIVE_REGISTER
-const activeRegister = [];
+let activeRegister = NaN;
 // MULTIPLY_REGISTER
-const multiplyRegister = [];
+// const multiplyRegister = [];
 
 // FUNCTIONS
 // INIT
@@ -28,23 +28,25 @@ const init = () => {
 };
 // SET
 const set = () => {
-  // SET the MAR index in activeRegister
-  binaryOrDecimal = 'decimal';
+  // SET the address of the next byte to be the active register
+  stateSet = true;
+  // binaryOrDecimal = 'decimal';
 };
 // SAVE
 const save = () => {
-  // SAVE the decimal value at MAR index per activeRegister
+  // SAVE the value of the next byte into the active register
   binaryOrDecimal = 'decimal';
 };
 // MULTIPLY
 const multiply = () => {
-  // MULTIPLY into the activeRegster the values at the next two MAR indexes
-  // programCounter +2 to set back to binary.
+  // MULTIPLY the values stored in the registers identified by the next
+  // two bytes, saving them into the currently SET register
+  // programCounter +2 to set back to binary ??
   binaryOrDecimal = 'decimal';
 };
 // PRINT
 const print = () => {
-  // print the activeRegister value
+  // console.log the integer value of the active register
   console.log('whatever we want');
   //console.log(memoryAddressRegister[activeRegister[0]]);
   done();
@@ -65,21 +67,27 @@ process.stdin.on('data', function (text) {
       console.log('binary string: ' + inputBinary);
       const inputDecimal = Number('0b' + inputBinary);
       console.log('converted to decimal: ' + inputDecimal);
-      // console.log(process.argv);
-      console.log(process.stdin.on);
+      console.log('program counter: ', programCounter);
+      if (stateSet && binaryOrDecimal === 'decimal') {
+        console.log('MAR BEFORE: ', memoryAddressRegister);
+        memoryAddressRegister[inputBinary] = inputDecimal;
+        console.log('MAR AFTER: ', memoryAddressRegister);
+        stateSet = false;
+      }
 
       if(!isNaN(inputDecimal)) {
         // cpu.process(inputDecimal); // <~~~~ MIND === BLOWN
         switch (inputDecimal) {
         case 1:
-          console.log(memoryAddressRegister);
+          console.log('MAR BEFORE: ', memoryAddressRegister);
           init();
-          console.log(memoryAddressRegister);
+          console.log('MAR AFTER: ', memoryAddressRegister);
           programCounter++;
           break;
         case 2:
           console.log('bin or dec: ', binaryOrDecimal);
           set();
+          binaryOrDecimal = 'decimal';
           console.log('bin or dec: ', binaryOrDecimal);
           programCounter++;
           break;
