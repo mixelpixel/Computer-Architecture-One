@@ -8,11 +8,11 @@ instructions.forEach((item)=> { bins.push(item.slice(0, 8))});
 
 // STATE CHANGES For State Machine
 // BINARY_OR_DECIMAL
-const binaryOrDecimal = 'binary';
+let binaryOrDecimal = 'binary' || 'decimal';
 // SET 
-// const stateSet = false;
+let stateSet = false;
 // // SAVE
-// const stateSave = false;
+let stateSave = false;
 // // MULTIPLY
 // const stateMultiply = false;
 
@@ -22,7 +22,7 @@ const binaryOrDecimal = 'binary';
 // MEMORY_ADDRESS_REGISTER
 let memoryAddressRegister = [null, null, null, null];
 // ACTIVE_REGISTER
-const activeRegister = [];
+let activeRegister = 0;
 // MULTIPLY_REGISTER
 const multiplyRegister = [];
 
@@ -43,11 +43,13 @@ const init = () => {
 };
 // SET 
 const set = () => {
-  
+  stateSet = true;
+  binaryOrDecimal = 'decimal';
 };
 // SAVE
 const save = () => {
-  
+  stateSave = true;
+  binaryOrDecimal = 'decimal';
 };
 // MULTIPLY
 const multiply = () => {
@@ -67,16 +69,25 @@ process.stdin.on('data', function (text) {
   if (text === 'quit\n') {
     done();
   }
+
   if(text.indexOf('\n')) {
     const lines = text.split('\n');
+    lines.pop();
     lines.forEach((line) => {
       // prep variable
       const inputBinary = line.split('#')[0].trim();
       console.log('binary string: ' + inputBinary);
       const inputDecimal = Number('0b' + inputBinary);
       console.log('converted decimal: ' + inputDecimal);
-
-      if(!isNaN(inputDecimal)) {
+      if (stateSet && binaryOrDecimal === 'decimal') { 
+        console.log(`Input Register: `, inputDecimal);
+        activeRegister = inputDecimal;
+        stateSet = false;
+        console.log(`Active Register: `, activeRegister);
+        binaryOrDecimal = 'binary';
+      }
+      //else if (binaryOrDecimal === 'decimal') { }
+      else if(!isNaN(inputDecimal)) {
         // if (inputDecimal === 00000001) { init()};
         // console.log(memoryAddressRegister);
         // cpu.process(inputDecimal);
@@ -86,8 +97,9 @@ process.stdin.on('data', function (text) {
              init();
              console.log(memoryAddressRegister);
              break;
-        //   case SET:
-        //     return 
+           case 2:
+            set();
+            break; 
         //   case SAVE:
         //     return 
         //   case MULTIPLY:
