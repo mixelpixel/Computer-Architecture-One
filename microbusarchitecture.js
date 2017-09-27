@@ -76,8 +76,9 @@ for (let i = 0; i < binaryCmds.length; i++) {
     console.log(`Memory Address Register after: ${MAR}`);
 
     programCounter++;
-    console.log(`Program Counter after: ${programCounter}\n`);
+    console.log(`Program Counter after: ${programCounter}`);
     IR.pop();
+    console.log(`clearing IR: ${IR}\n`);
   }, i * 200 );
 }
 
