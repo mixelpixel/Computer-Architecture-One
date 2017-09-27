@@ -9,11 +9,11 @@ let binaryOrDecimal = 'binary' || 'decimal'; // <~~~ defaults to binary, see: ht
 // // SAVE
 // const stateSave = false;
 // MULTIPLY
-const stateMultiply = false;
+let stateMultiply = false;
 
 // REGISTRIES
-// // INITIALIZE PROGRAM COUNTER: 0
-// const programCounter = 0;
+// INITIALIZE PROGRAM COUNTER: 0
+let programCounter = 0;
 // MEMORY_ADDRESS_REGISTER
 let memoryAddressRegister = [null, null, null, null];
 // ACTIVE_REGISTER
@@ -77,18 +77,23 @@ process.stdin.on('data', function (text) {
           console.log(memoryAddressRegister);
           init();
           console.log(memoryAddressRegister);
+          programCounter++;
           break;
         case 2:
           set();
           console.log(binaryOrDecimal);
+          programCounter++;
           break;
         case 4:
           save();
           console.log(binaryOrDecimal);
+          programCounter++;
           break;
         case 5:
           multiply();
+          stateMultiply = true;
           console.log(binaryOrDecimal);
+          programCounter++;
           break;
         case 6:
           print(); // <~~~ invokes done()
@@ -96,7 +101,8 @@ process.stdin.on('data', function (text) {
         default:
           // If multiply, binaryOrDecimal = decimal x2
           binaryOrDecimal = 'binary';
-          return console.log('you fucking numbnuts');
+          programCounter++;
+          console.log('you fucking numbnuts');
         }
       }
     });
