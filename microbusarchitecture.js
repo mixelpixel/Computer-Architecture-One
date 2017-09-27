@@ -80,13 +80,19 @@ process.stdin.on('data', function (text) {
       const inputDecimal = Number('0b' + inputBinary);
       console.log('converted decimal: ' + inputDecimal);
       if (stateSet && binaryOrDecimal === 'decimal') { 
-        console.log(`Input Register: `, inputDecimal);
+        console.log(`Input Value: `, inputDecimal);
         activeRegister = inputDecimal;
         stateSet = false;
         console.log(`Active Register: `, activeRegister);
         binaryOrDecimal = 'binary';
       }
-      //else if (binaryOrDecimal === 'decimal') { }
+      else if (stateSave && binaryOrDecimal === 'decimal') { 
+        memoryAddressRegister[activeRegister] = inputDecimal;
+        stateSave = false;
+        binaryOrDecimal = 'binary';
+        console.log(`Integer: `,memoryAddressRegister[activeRegister]);
+        console.log(`MAR: `,memoryAddressRegister);
+      }
       else if(!isNaN(inputDecimal)) {
         // if (inputDecimal === 00000001) { init()};
         // console.log(memoryAddressRegister);
@@ -100,8 +106,9 @@ process.stdin.on('data', function (text) {
            case 2:
             set();
             break; 
-        //   case SAVE:
-        //     return 
+          case 4:
+            save();
+            break;
         //   case MULTIPLY:
         //     return 
           case 6:
