@@ -7,9 +7,12 @@ const bins = [];
 instructions.forEach((item)=> { bins.push(item.slice(0, 8))});
 
 // STATE CHANGES For State Machine
-  // SET 
-  // SAVE
-  // MULTIPLY
+// SET 
+const stateSet = false;
+// SAVE
+const stateSave = false;
+// MULTIPLY
+const stateMultiply = false;
 
 // REGISTRIES
 // INITIALIZE PROGRAM COUNTER: 0
