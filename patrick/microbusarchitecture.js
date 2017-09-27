@@ -24,18 +24,15 @@ const multiplyRegister = [];
 // FUNCTIONS
 // INIT
 const init = () => {
-  binaryOrDecimal = 'binary';
   memoryAddressRegister = [0, 0, 0, 0];
 };
 // SET
 const set = () => {
-  binaryOrDecimal = 'binary';
   // SET the MAR index in activeRegister
   binaryOrDecimal = 'decimal';
 };
 // SAVE
 const save = () => {
-  binaryOrDecimal = 'binary';
   // SAVE the decimal value at MAR index per activeRegister
   binaryOrDecimal = 'decimal';
 };
@@ -43,6 +40,7 @@ const save = () => {
 const multiply = () => {
   // MULTIPLY into the activeRegster the values at the next two MAR indexes
   // programCounter +2 to set back to binary.
+  binaryOrDecimal = 'decimal';
 };
 // PRINT
 const print = () => {
@@ -80,19 +78,18 @@ process.stdin.on('data', function (text) {
           programCounter++;
           break;
         case 2:
+          console.log('bin or dec: ', binaryOrDecimal);
           set();
-          console.log(binaryOrDecimal);
+          console.log('bin or dec: ', binaryOrDecimal);
           programCounter++;
           break;
         case 4:
           save();
-          console.log(binaryOrDecimal);
           programCounter++;
           break;
         case 5:
           multiply();
           stateMultiply = true;
-          console.log(binaryOrDecimal);
           programCounter++;
           break;
         case 6:
