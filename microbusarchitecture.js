@@ -7,6 +7,8 @@ const bins = [];
 instructions.forEach((item)=> { bins.push(item.slice(0, 8))});
 
 // STATE CHANGES For State Machine
+// BINARY_OR_DECIMAL
+const binaryOrDecimal = 'binary';
 // SET 
 const stateSet = false;
 // SAVE
