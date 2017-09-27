@@ -1,127 +1,113 @@
-'use strict';
+// Read Command List >> Into Array
+// const fs = require('fs');
+// const os = require('os');
+// const instructions = fs.readFileSync('inputFile', 'utf8').split(os.EOL);
+// const bins = [];
+// instructions.forEach((item)=> {
+//   bins.push(item.slice(0, 8));
+// });
+
 /* eslint no-console: 0 */
-const fs = require('fs');
-const os = require('os');
+// STATE CHANGES For State Machine
+// BINARY_OR_DECIMAL
+const binaryOrDecimal = 'binary' || 'decimal';
+console.log(binaryOrDecimal);
+// SET
+// const stateSet = false;
+// // SAVE
+// const stateSave = false;
+// // MULTIPLY
+// const stateMultiply = false;
 
-// import commands into an array
-const commands = fs.readFileSync('./inputfile', 'utf8').split(os.EOL);
-// PROCESS.ARGV version
-// const process = require('process'); // <~~~ just making linter happy
-// const file = process.argv[2];
-// const commands = fs.readFileSync(file, 'utf8').split(os.EOL);
+// REGISTRIES
+// INITIALIZE PROGRAM COUNTER: 0
+// const programCounter = 0;
+// MEMORY_ADDRESS_REGISTER
+let memoryAddressRegister = [null, null, null, null];
+// ACTIVE_REGISTER
+const activeRegister = [];
+// MULTIPLY_REGISTER
+const multiplyRegister = [];
 
-const binaryCmds = [];
-commands.forEach((item) => {
-  binaryCmds.push(item.slice(0, 8));
-});
-binaryCmds.pop();
+// FUNCTIONS
+// EXECUTE_CPU_CYCLE
+// // Program counter++ advances with each execution of the CPU cycle
+// const CPU = () => {
+//   for (let i = 0; i < bins.length; i++) {
+//     setTimeout(() => { console.log(bins[i])}, i * 1000);
+//   }
+// };
+// CPU();
+// BINARY_STRING TO DECIMAL CONVERSION: parseInt(string, 2)
 
-// console.log(binaryCmds);
-// const unique = new Set(binaryCmds);
-// console.log(unique);
-// const sorted = Array.from(unique).sort();
-// console.log(sorted);
-/*
-[
-  '00000000', - register #0
-  '00000001', - INIT initialize, register #1
-  '00000010', - SET register, register #3
-  '00000100', - SAVE next
-  '00000101', - MUL into last
-  '00000110', - PRINT_NUMERIC
-  '00001000', - 8
-  '00001001'  - 9
-]
-*/
+// INIT
+const init = () => {
+  memoryAddressRegister = [0, 0, 0, 0];
+};
+// SET
+const set = () => {
 
-// Initialized with leftover memory bits and pieces from prior use
-let MAR = [ 3, 'banana muffin', 'MyLittlePony', 'mango' ];
-// MAR [ 0, 0, 0, 0 ]
-let IR = [];
-let programCounter = 0;
-let setState = false;
-let decimalValue = null;
-let activeRegister = null;
-let multiplyRegister = null;
+};
+// SAVE
+const save = () => {
 
-// create interval with setInterval
-// use console logs to observer what happens
-// loop to establish condition for execution? per binaryCmds.length via programCounter?
-for (let i = 0; i < binaryCmds.length; i++) {
-  // command: function Dictionary
-  const hardware = {
-    // INIT
-    '00000001': () => MAR = [ 0, 0, 0, 0 ],
-    // SET
-    '00000010': () => {
-      if (setState) {
-        // use as binary decimalValue = ???
-        setState = false;
-      }
-      MAR[parseInt(binaryCmds[i + 1], 2)] = 'HOLD';
-      setState = true;
-    },
-    // SAVE
-    '00000100': () => {},
-    // MULTIPLY
-    '00000101': () => {},
-    // PRINT
-    '00000110': () => {},
-    binaryStrToDecimal: () => {},
-    // TODO: binary > ascii
-    // CONCATENATE strings
-  };
+};
+// MULTIPLY
+const multiply = () => {
 
-  setTimeout(() => {
-    console.log(`Program Counter before: ${programCounter}`);
-    console.log(`Memory Address Register before: ${MAR}`);
-    IR.push(binaryCmds[i]);
-    console.log(`Pushing binary command: ${binaryCmds[i]} to IR: ${IR}`);
-
-    if (hardware[binaryCmds[i]] === undefined) {
-      console.log('Your MAMA Wears an afro with a chin strap!');
-    } else {
-      hardware[binaryCmds[i]]();
-    }
-
-    console.log(`Memory Address Register after: ${MAR}`);
-
-    programCounter++;
-    console.log(`Program Counter after: ${programCounter}`);
-    IR.pop();
-    console.log(`clearing IR: ${IR}\n`);
-  }, i * 200 );
-}
-
-// with each cycle execute core: 4 steps
-const executeCore = (bin) => {
-  /* 4 steps per: https://youtu.be/82F93iymaaU?t=54m57s
-  1) read memory (data from inputfile)
-  1a) inputfile line number (or array index) pointed to by programCounter (init @ 0)
-  2) COPY what is in the inputfile index into the MAR (Memory Address Register)
-  3) push into instruction register
-  4) execute instruction
-  5) programCounter++
-  6) repeat until dead
-
-  e.g.
-  Initialize IR 1: zero out all the registers (reg 0, 1, 2, 3)
-  IR commands: initialize set all 4 regs to zero
-  IR 2 - SET next number should wire up specific register for the next command of data.
-  now the 00000000 means something different - it means register 0
-  SAVE - save next command as a number
-  8 gets saved in register 0
-  */
+};
+// PRINT
+const print = () => {
+  // print the register value
+  console.log('whatever we want');
+  //console.log(memoryAddressRegister[activeRegister[0]]);
+  done();
 };
 
-// read data from file (as pointed to by Program Counter - 0 equals line 0)
-// copy what is in PC into MAR (memory address register - ignoring delay)
+process.stdin.resume();
+process.stdin.setEncoding('utf8');
+process.stdin.on('data', function (text) {
+  if (text === 'quit\n') {
+    done();
+  }
+  if(text.indexOf('\n')) {
+    const lines = text.split('\n');
+    lines.forEach((line) => {
+      // prep variable
+      const inputBinary = line.split('#')[0].trim();
+      console.log('binary string: ' + inputBinary);
+      const inputDecimal = Number('0b' + inputBinary);
+      console.log('converted decimal: ' + inputDecimal);
 
-// copy data pointed to by PC into the instruction register
+      if(!isNaN(inputDecimal)) {
+        // if (inputDecimal === 00000001) { init()};
+        // console.log(memoryAddressRegister);
+        // cpu.process(inputDecimal);
+        switch (inputDecimal) {
+          case 1:
+            console.log(memoryAddressRegister);
+            init();
+            console.log(memoryAddressRegister);
+            break;
+        //   case SET:
+        //     return
+        //   case SAVE:
+        //     return
+        //   case MULTIPLY:
+        //     return
+          case 6:
+            print();
+            break;
+          default:
+            return console.log('you fucking numbnuts');
+        }
+        // console.log('you fucking numbnuts');
+        // done();
+      }
+    });
+  }
+});
 
-//  execute
-
-// initializing zero's out all the registers, so the instruction register is "erased"
-
-
-// save next is the number 4 and it is storing 8
+function done() {
+  process.exit();
+}
