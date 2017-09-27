@@ -25,3 +25,34 @@ import fs
 - register 0 is set
 - SAVE
 - ...
+
+
+> Because just parsing the input text is not your assignment, I share this with you so that you can do what I do:
+```
+process.stdin.resume();
+process.stdin.setEncoding('utf8');
+process.stdin.on('data', function (text) {
+  if (text === 'quit\n') {
+    done();
+  }
+  if(text.indexOf('\n')) {
+    const lines = text.split('\n');
+    lines.forEach((line) => {
+      // prep variable
+      const inputBinary = line.split('#')[0].trim();
+      const inputDecimal = Number('0b' + inputBinary);
+      //console.log('decimal' + inputDecimal);
+      //console.log('binary' + inputBinary);
+      if(!isNaN(inputDecimal)) {
+        cpu.process(inputDecimal);
+      }
+    });
+  }
+});
+
+function done() {
+  process.exit();
+}
+```
+
+> Your goal is to: put your CPU into a particular STATE based on which command it gets. in the next command, if your CPU is in that state, save the command.
