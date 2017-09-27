@@ -14,7 +14,7 @@ const binaryCmds = [];
 commands.forEach((item) => {
   binaryCmds.push(item.slice(0, 8));
 });
-binaryCmds.pop();
+binaryCmds.pop(); // <~~~ needs a conditional in case there is no newline at EOF
 
 // console.log(binaryCmds);
 // const unique = new Set(binaryCmds);
