@@ -104,7 +104,7 @@ process.stdin.on('data', function (text) {
           print();
           break;
         default:
-          console.log('you fucking numbnuts');
+          console.log('you silly puppy');
         }
       }
       // programCounter++;
