@@ -60,8 +60,7 @@ const multiply = () => {
 // PRINT 
 const print = () => {
   // print the register value
-  console.log('whatever we want');
-  //console.log(memoryAddressRegister[activeRegister[0]]);
+  console.log('Stevie + Patrick are awesome!!! >>>', memoryAddressRegister[activeRegister]);
   done();
 };
 
