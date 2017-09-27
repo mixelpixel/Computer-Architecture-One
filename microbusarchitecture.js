@@ -34,33 +34,44 @@ binaryCmds.pop();
 ]
 */
 
-// command: function Dictionary
-const hardware = {
-  // INIT
-  '00000001': () => MAR = [ 0, 0, 0, 0 ],
-  // SET
-  '00000010': () => {},
-  // SAVE
-  '00000100': () => {},
-  // MULTIPLY
-  '00000101': () => {},
-  // PRINT
-  '00000110': () => {},
-  binaryStrToDecimal: () => {},
-  // TODO: binary > ascii
-  // CONCATENATE strings
-};
-
 // Initialized with leftover memory bits and pieces from prior use
-let MAR = [ 3, 'banana muffin', 'Rocco\'s stinky farts', 'chicken mango' ];
+let MAR = [ 3, 'banana muffin', 'MyLittlePony', 'mango' ];
 // MAR [ 0, 0, 0, 0 ]
 let IR = [];
 let programCounter = 0;
+let setState = false;
+let decimalValue = null;
+let activeRegister = null;
+let multiplyRegister = null;
 
 // create interval with setInterval
 // use console logs to observer what happens
 // loop to establish condition for execution? per binaryCmds.length via programCounter?
 for (let i = 0; i < binaryCmds.length; i++) {
+  // command: function Dictionary
+  const hardware = {
+    // INIT
+    '00000001': () => MAR = [ 0, 0, 0, 0 ],
+    // SET
+    '00000010': () => {
+      if (setState) {
+        // use as binary decimalValue = ???
+        setState = false;
+      }
+      MAR[parseInt(binaryCmds[i + 1], 2)] = 'HOLD';
+      setState = true;
+    },
+    // SAVE
+    '00000100': () => {},
+    // MULTIPLY
+    '00000101': () => {},
+    // PRINT
+    '00000110': () => {},
+    binaryStrToDecimal: () => {},
+    // TODO: binary > ascii
+    // CONCATENATE strings
+  };
+
   setTimeout(() => {
     console.log(`Program Counter before: ${programCounter}`);
     console.log(`Memory Address Register before: ${MAR}`);
@@ -82,9 +93,7 @@ for (let i = 0; i < binaryCmds.length; i++) {
   }, i * 200 );
 }
 
-
 // with each cycle execute core: 4 steps
-
 const executeCore = (bin) => {
   /* 4 steps per: https://youtu.be/82F93iymaaU?t=54m57s
   1) read memory (data from inputfile)
