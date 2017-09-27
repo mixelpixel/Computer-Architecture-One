@@ -37,7 +37,7 @@ binaryCmds.pop();
 // command: function Dictionary
 const hardware = {
   // INIT
-  '00000001': () => {},
+  '00000001': () => MAR = [ 0, 0, 0, 0 ],
   // SET
   '00000010': () => {},
   // SAVE
@@ -49,9 +49,12 @@ const hardware = {
   binaryStrToDecimal: () => {},
   // TODO: binary > ascii
   // CONCATENATE strings
-}
+};
 
-const MAR = [];
+// Initialized with leftover memory bits and pieces from prior use
+let MAR = [ 3, 'banana muffin', 'Rocco\'s stinky farts', 'chicken mango' ];
+// MAR [ 0, 0, 0, 0 ]
+let IR = [];
 let programCounter = 0;
 
 // create interval with setInterval
@@ -61,14 +64,21 @@ for (let i = 0; i < binaryCmds.length; i++) {
   setTimeout(() => {
     console.log(`Program Counter before: ${programCounter}`);
     console.log(`Memory Address Register before: ${MAR}`);
-    MAR.push(binaryCmds[i]);
+    IR.push(binaryCmds[i]);
+    console.log(`Pushing binary command: ${binaryCmds[i]} to IR: ${IR}`);
+
+    if (hardware[binaryCmds[i]] === undefined) {
+      console.log('Your MAMA Wears an afro with a chin strap!');
+    } else {
+      hardware[binaryCmds[i]]();
+    }
+
     console.log(`Memory Address Register after: ${MAR}`);
-    console.log(`Executing binary command: ${binaryCmds[i]}`);
+
     programCounter++;
     console.log(`Program Counter after: ${programCounter}\n`);
-    MAR.pop();
-    console.log(`Memory Address Register after Program Counter: ${MAR}`);
-  }, i * 500 );
+    IR.pop();
+  }, i * 200 );
 }
 
 
