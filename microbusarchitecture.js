@@ -3,7 +3,7 @@ const fs = require('fs');
 const os = require('os');
 
 const instructions = fs.readFileSync('inputFile', 'utf8').split(os.EOL);
-const bins = []; 
+const bins = [];
 instructions.forEach((item)=> { bins.push(item.slice(0, 8))});
 
 // STATE CHANGES For State Machine
@@ -25,11 +25,44 @@ const activateRegister = [];
 const multiplyRegister = [];
 
 // FUNCTIONS
-  // EXECUTE_CPU_CYCLE
-      // Program counter++ advances with each execution of the CPU cycle
-  // BINARY_STRING TO DECIMAL CONVERSION: parseInt(string, 2)
-  // INIT
-  // SET 
-  // SAVE
-  // MULTIPLY
-  // PRINT 
+// EXECUTE_CPU_CYCLE
+    // Program counter++ advances with each execution of the CPU cycle
+// const CPU = () => {
+//   for (let i = 0; i < bins.length; i++) {
+//     setTimeout(() => { console.log(bins[i])}, i * 1000);
+//   }
+// };
+// CPU();
+// BINARY_STRING TO DECIMAL CONVERSION: parseInt(string, 2)
+// INIT
+// SET 
+// SAVE
+// MULTIPLY
+// PRINT 
+process.stdin.resume();
+process.stdin.setEncoding('utf8');
+process.stdin.on('data', function (text) {
+  if (text === 'quit\n') {
+    done();
+  }
+  if(text.indexOf('\n')) {
+    const lines = text.split('\n');
+    lines.forEach((line) => {
+      // prep variable
+      const inputBinary = line.split('#')[0].trim();
+      console.log('binary: ' + inputBinary);
+      const inputDecimal = Number('0b' + inputBinary);
+      console.log('decimal: ' + inputDecimal);
+
+      if(!isNaN(inputDecimal)) {
+        // cpu.process(inputDecimal);
+        console.log('you fucking numbnuts');
+        done();
+      }
+    });
+  }
+});
+
+function done() {
+  process.exit();
+}
