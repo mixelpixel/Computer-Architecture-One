@@ -71,7 +71,7 @@ process.stdin.on('data', function (text) {
 
       if (stateSet && binaryOrDecimal === 'decimal') {
         console.log('MAR BEFORE: ', memoryAddressRegister);
-        memoryAddressRegister[inputBinary] = inputDecimal;
+        memoryAddressRegister[inputBinary] = 'ON HOLD';
         console.log('MAR AFTER: ', memoryAddressRegister);
         stateSet = false;
       }
@@ -110,6 +110,7 @@ process.stdin.on('data', function (text) {
           programCounter++;
           console.log('you fucking numbnuts');
         }
+        console.log('forEach Loop \n');
       }
     });
   }
