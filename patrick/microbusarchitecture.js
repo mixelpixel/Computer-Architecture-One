@@ -1,54 +1,41 @@
 'use-strict';
 /* eslint no-console: 0 */
 
-// STATE CHANGES For State Machine
-// BINARY_OR_DECIMAL
-let binaryOrDecimal = 'binary' || 'decimal'; // <~~~ defaults to binary, see: https://stackoverflow.com/q/2100758/5225057
-// SET
+// STATE CHANGES
+let binaryOrDecimal = 'binary' || 'decimal';
 let stateSet = false;
-// // SAVE
-// const stateSave = false;
-// MULTIPLY
+let stateSave = false;
 let stateMultiply = false;
+let multiplyTwice = false;
 
-// REGISTRIES
+// REGISTERS
 // INITIALIZE PROGRAM COUNTER: 0
-let programCounter = 0;
+// let programCounter = 0;
 // MEMORY_ADDRESS_REGISTER
 let memoryAddressRegister = [null, null, null, null];
 // ACTIVE_REGISTER
-let activeRegister = NaN;
+let activeRegister = 0;
 // MULTIPLY_REGISTER
-// const multiplyRegister = [];
+const multiplyRegister = [NaN, NaN];
 
 // FUNCTIONS
-// INIT
 const init = () => {
   memoryAddressRegister = [0, 0, 0, 0];
 };
-// SET
 const set = () => {
-  // SET the address of the next byte to be the active register
   stateSet = true;
-  // binaryOrDecimal = 'decimal';
+  binaryOrDecimal = 'decimal';
 };
-// SAVE
 const save = () => {
-  // SAVE the value of the next byte into the active register
+  stateSave = true;
   binaryOrDecimal = 'decimal';
 };
-// MULTIPLY
 const multiply = () => {
-  // MULTIPLY the values stored in the registers identified by the next
-  // two bytes, saving them into the currently SET register
-  // programCounter +2 to set back to binary ??
+  stateMultiply = true;
   binaryOrDecimal = 'decimal';
 };
-// PRINT
 const print = () => {
-  // console.log the integer value of the active register
-  console.log('whatever we want');
-  //console.log(memoryAddressRegister[activeRegister[0]]);
+  console.log('Stevie + Patrick are awesome!!! >>>', memoryAddressRegister[activeRegister]);
   done();
 };
 
@@ -59,59 +46,69 @@ process.stdin.on('data', function (text) {
   if (text === 'quit\n') {
     done();
   }
+
   if(text.indexOf('\n')) {
     const lines = text.split('\n');
+    lines.pop();
     lines.forEach((line) => {
       // prep variable
       const inputBinary = line.split('#')[0].trim();
-      console.log('binary string: ' + inputBinary);
+      // console.log('binary string: ' + inputBinary);
       const inputDecimal = Number('0b' + inputBinary);
-      console.log('converted to decimal: ' + inputDecimal);
-      console.log('program counter: ', programCounter);
-
+      // console.log('converted decimal: ' + inputDecimal);
       if (stateSet && binaryOrDecimal === 'decimal') {
-        console.log('MAR BEFORE: ', memoryAddressRegister);
-        memoryAddressRegister[inputBinary] = 'ON HOLD';
-        console.log('MAR AFTER: ', memoryAddressRegister);
+        // console.log(`Input Value: `, inputDecimal);
+        activeRegister = inputDecimal;
         stateSet = false;
+        // console.log(`Active Register: `, activeRegister);
+        binaryOrDecimal = 'binary';
       }
-
-      else if (!isNaN(inputDecimal)) {
-        // cpu.process(inputDecimal); // <~~~~ MIND === BLOWN
+      else if (stateSave && binaryOrDecimal === 'decimal') {
+        memoryAddressRegister[activeRegister] = inputDecimal;
+        stateSave = false;
+        binaryOrDecimal = 'binary';
+        // console.log(`Integer: `,memoryAddressRegister[activeRegister]);
+        // console.log(`MAR: `,memoryAddressRegister);
+      }
+      else if (stateMultiply && binaryOrDecimal === 'decimal') {
+        if (multiplyTwice) {
+          multiplyRegister[1] = memoryAddressRegister[inputDecimal];
+          memoryAddressRegister[activeRegister] = (multiplyRegister[0] * multiplyRegister[1]);
+          // console.log('SECOND: ', multiplyRegister);
+          stateMultiply = false;
+          binaryOrDecimal = 'binary';
+          // console.log(`MAR: `,memoryAddressRegister);
+        }
+        multiplyRegister[0] = memoryAddressRegister[inputDecimal];
+        // console.log('FIRST: ', multiplyRegister);
+        multiplyTwice = true;
+      }
+      else if(!isNaN(inputDecimal)) {
+        // cpu.process(inputDecimal); // <~~~~~~~~~~~~~~~~~~~~~~ MIND === BLOWN
         switch (inputDecimal) {
         case 1:
-          console.log('MAR BEFORE: ', memoryAddressRegister);
+          // console.log(memoryAddressRegister);
           init();
-          console.log('MAR AFTER: ', memoryAddressRegister);
-          programCounter++;
+          // console.log(memoryAddressRegister);
           break;
         case 2:
-          console.log('bin or dec: ', binaryOrDecimal);
           set();
-          binaryOrDecimal = 'decimal';
-          console.log('bin or dec: ', binaryOrDecimal);
-          programCounter++;
           break;
         case 4:
           save();
-          programCounter++;
           break;
         case 5:
           multiply();
-          stateMultiply = true;
-          programCounter++;
           break;
         case 6:
-          print(); // <~~~ invokes done()
+          print();
           break;
         default:
-          // If multiply, binaryOrDecimal = decimal x2
-          binaryOrDecimal = 'binary';
-          programCounter++;
           console.log('you fucking numbnuts');
         }
-        console.log('forEach Loop \n');
       }
+      // programCounter++;
+      // console.log('PC: ', programCounter);
     });
   }
 });
