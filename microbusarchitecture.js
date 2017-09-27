@@ -6,18 +6,20 @@ const instructions = fs.readFileSync('inputFile', 'utf8').split(os.EOL);
 const bins = []; 
 instructions.forEach((item)=> { bins.push(item.slice(0, 8))});
 
-console.log(bins);
-
 // STATE CHANGES For State Machine
   // SET 
   // SAVE
   // MULTIPLY
 
 // REGISTRIES
-  // INITIALIZE PROGRAM COUNTER: 0
-  // MEMORY_ADDRESS_REGISTER
-  // ACTIVE_REGISTER
-  // MULTIPLY_REGISTER
+// INITIALIZE PROGRAM COUNTER: 0
+const programCounter = 0;
+// MEMORY_ADDRESS_REGISTER
+const memoryAddressRegister = [];
+// ACTIVE_REGISTER
+const activateRegister = [];
+// MULTIPLY_REGISTER
+const multiplyRegister = [];
 
 // FUNCTIONS
   // EXECUTE_CPU_CYCLE
